@@ -21,6 +21,7 @@ module.exports = {
                     "Barlow Semi Condensed",
                     "sans-serif",
                 ],
+                sans: ["Barlow Semi Condensed", "sans-serif"],
             },
         },
     },
