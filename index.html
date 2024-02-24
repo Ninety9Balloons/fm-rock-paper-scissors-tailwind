@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- displays site properly based on user's device -->
+
+        <link href="./output.css" rel="stylesheet" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./images/favicon-32x32.png"
+        />
+
+        <title>Frontend Mentor | Rock, Paper, Scissors</title>
+    </head>
+    <body
+        class="font-barlow-semi-condensed flex justify-center min-h-screen h-full w-full min-w-screen bg-gradient-to-b from-radial-gradient-1 to-radial-gradient-2 text-white relative"
+    >
+        <!-- Rules Modal -->
+        <div
+            id="modal"
+            class="hidden flex-col justify-between items-center px-7 py-20 bg-white w-full h-full min-w-screen min-h-screen absolute z-30"
+        >
+            <p class="text-3xl uppercase font-bold text-dark-text">Rules</p>
+            <img src="images/image-rules.svg" alt="Rules image" />
+            <button
+                id="close-button"
+                class="p-5 hover:brightness-[.25] transition-all"
+            >
+                <img src="images/icon-close.svg" alt="Close icon" />
+            </button>
+        </div>
+
+        <!-- Main Container -->
+        <div
+            class="p-7 h-screen w-full max-w-[400px] md:max-w-[800px] max-h-[700px] flex flex-col justify-between md:items-center"
+        >
+            <!-- Header Container -->
+            <div
+                class="border-2 border-header-outline md:max-w-[600px] md:w-[600px] flex justify-between rounded-lg p-2 md:p-4 uppercase items-center"
+            >
+                <!-- Logo -->
+                <img
+                    src="images/logo.svg"
+                    class="w-24 md:w-36 ml-2"
+                    alt="Logo"
+                />
+
+                <!-- Score -->
+                <div
+                    class="bg-white rounded-lg flex flex-col items-center px-5 md:px-8 py-2"
+                >
+                    <p
+                        class="text-score-text tracking-widest text-sm md:text-md"
+                    >
+                        Score
+                    </p>
+                    <p
+                        class="text-header-outline text-4xl md:text-6xl font-bold"
+                        id="score"
+                    ></p>
+                </div>
+            </div>
+
+            <!-- Icon Container -->
+            <div
+                class="w-full flex flex-wrap justify-center md:w-[400px] relative"
+                id="icons-container"
+            >
+                <!-- Upper Icons Container -->
+                <div class="flex justify-between w-full md:w-[400px] z-20">
+                    <div>
+                        <img
+                            src="/images/icon-paper.svg"
+                            alt="paper icon"
+                            id="paper-icon"
+                            data-icon="paper"
+                            class="bg-white rounded-full p-7 flex justify-center items-center border-paper-gradient-1 border-[15px] w-[120px] h-[120px] md:w-[150px] md:h-[150px] shadow-[2px_7px_0px_0px_rgba(43,56,122)] hover:-translate-y-2 transition-all cursor-pointer"
+                        />
+                    </div>
+                    <div>
+                        <img
+                            src="/images/icon-scissors.svg"
+                            alt="scissors icon"
+                            id="scissors-icon"
+                            data-icon="scissors"
+                            class="bg-white rounded-full p-7 flex justify-center items-center border-scissors-gradient-1 border-[15px] w-[120px] h-[120px] md:w-[150px] md:h-[150px] shadow-[2px_7px_0px_0px_rgba(183,123,11)] hover:-translate-y-2 transition-all cursor-pointer"
+                        />
+                    </div>
+                </div>
+                <div class="w-full flex justify-center mt-10 z-20">
+                    <img
+                        src="/images/icon-rock.svg"
+                        alt="rock icon"
+                        id="rock-icon"
+                        data-icon="rock"
+                        class="bg-white rounded-full p-7 flex justify-center items-center border-rock-gradient-1 border-[15px] w-[120px] h-[120px] md:w-[150px] md:h-[150px] shadow-[2px_7px_0px_0px_rgba(167,53,74)] hover:-translate-y-2 transition-all cursor-pointer"
+                    />
+                </div>
+
+                <!-- Background triangle thing behind icons -->
+                <img
+                    src="/images/bg-triangle.svg"
+                    alt="background triangle"
+                    class="w-full h-full absolute scale-75 z-10"
+                />
+            </div>
+
+            <!-- Step 2 container -->
+            <div class="w-full">
+                <!-- Picked Icons Container -->
+                <div
+                    class="w-full justify-around hidden md:py-44"
+                    id="picked-container"
+                >
+                    <!-- Player Pick -->
+                    <div class="flex flex-col items-center">
+                        <!-- Text Desktop -->
+                        <p
+                            class="uppercase mb-8 tracking-widest hidden md:block"
+                        >
+                            You picked
+                        </p>
+
+                        <!-- Icon -->
+                        <div id="player-icon"></div>
+
+                        <!-- Text Mobile -->
+                        <p class="uppercase mt-8 tracking-widest md:hidden">
+                            You picked
+                        </p>
+                    </div>
+
+                    <!-- Results Container Desktop -->
+                    <div class="hidden md:flex">
+                        <div
+                            class="w-[190px] hidden flex-col justify-center items-center px-14 md:p-0"
+                            id="results-container-d"
+                        >
+                            <!-- Result Text -->
+                            <p
+                                class="text-5xl uppercase"
+                                id="results-text-d"
+                            ></p>
+                            <button
+                                class="uppercase bg-white text-dark-text rounded-lg w-full py-3 mt-5 tracking-widest hover:bg-header-outline hover:text-white transition-all"
+                                onclick="playAgain()"
+                            >
+                                Play Again
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Computer Pick -->
+                    <div class="flex flex-col items-center">
+                        <!-- Text Desktop -->
+                        <p
+                            class="uppercase mb-8 tracking-widest hidden md:block"
+                        >
+                            The House picked
+                        </p>
+
+                        <!-- Placeholder -->
+                        <div
+                            id="computer-placeholder"
+                            class="bg-dark-text rounded-full opacity-25 w-[120px] h-[120px] md:w-[200px] md:h-[200px]"
+                        ></div>
+
+                        <!-- Icon -->
+                        <div id="computer-icon"></div>
+
+                        <!-- Text Mobile -->
+                        <p class="uppercase mt-8 tracking-widest md:hidden">
+                            The House picked
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Results Container Mobile -->
+                <div
+                    class="w-full hidden md:hidden flex-col justify-center items-center mt-10 px-14"
+                    id="results-container-m"
+                >
+                    <!-- Result Text -->
+                    <p
+                        class="uppdercase text-5xl uppercase"
+                        id="results-text-m"
+                    ></p>
+                    <button
+                        class="uppercase bg-white text-dark-text rounded-lg w-full py-3 mt-5 tracking-widest hover:bg-header-outline hover:text-white transition-all"
+                        onclick="playAgain()"
+                    >
+                        Play Again
+                    </button>
+                </div>
+            </div>
+
+            <!-- Rules Container -->
+            <div
+                class="flex justify-center items-center md:absolute md:bottom-0 md:right-0 md:mr-5"
+            >
+                <button
+                    class="uppercase mb-6 border-2 border-header-outline rounded-lg px-10 py-2 hover:border-white transition-all"
+                    id="rules-button"
+                >
+                    <p class="tracking-widest">Rules</p>
+                </button>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
